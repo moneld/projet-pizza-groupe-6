@@ -1,0 +1,15 @@
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/bin/Debug/net6.0/ProjetPizzaGroupe6
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/bin/Debug/net6.0/ProjetPizzaGroupe6.deps.json
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/bin/Debug/net6.0/ProjetPizzaGroupe6.runtimeconfig.json
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/bin/Debug/net6.0/ProjetPizzaGroupe6.dll
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/bin/Debug/net6.0/ref/ProjetPizzaGroupe6.dll
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/bin/Debug/net6.0/ProjetPizzaGroupe6.pdb
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/obj/Debug/net6.0/ProjetPizzaGroupe6.csproj.AssemblyReference.cache
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/obj/Debug/net6.0/ProjetPizzaGroupe6.GeneratedMSBuildEditorConfig.editorconfig
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/obj/Debug/net6.0/ProjetPizzaGroupe6.AssemblyInfoInputs.cache
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/obj/Debug/net6.0/ProjetPizzaGroupe6.AssemblyInfo.cs
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/obj/Debug/net6.0/ProjetPizzaGroupe6.csproj.CoreCompileInputs.cache
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/obj/Debug/net6.0/ProjetPizzaGroupe6.dll
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/obj/Debug/net6.0/ref/ProjetPizzaGroupe6.dll
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/obj/Debug/net6.0/ProjetPizzaGroupe6.pdb
+/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/obj/Debug/net6.0/ProjetPizzaGroupe6.genruntimeconfig.cache
