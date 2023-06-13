@@ -55,14 +55,7 @@ namespace ProjetPizzaGroupe6
                 Console.WriteLine("\n#####################################");
                 Console.WriteLine("Instructions de préparation :");
                 Console.WriteLine("#####################################");
-                
-                foreach (var component in order.GetComponents())
-                {
-                    Console.WriteLine("\nPréparer la pâte");
-                    component.Display(0);
-                    Console.WriteLine("Cuire la pizza\n");
-                }
-
+                order.DisplayInstructions();
                 Console.WriteLine("\n#####################################");
                 Console.WriteLine("Liste des ingrédients utilisés :");
                 Console.WriteLine("#####################################");

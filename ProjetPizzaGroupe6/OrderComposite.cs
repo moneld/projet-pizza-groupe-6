@@ -60,6 +60,26 @@ namespace ProjetPizzaGroupe6
             Console.WriteLine("---------------------------------");
         }
 
+        public void DisplayInstructions()
+        {
+            foreach (var pizzaEntry in _pizzaQuantities)
+            {
+                var pizzaName = pizzaEntry.Key;
+                var pizzaQuantity = pizzaEntry.Value;
+                var pizza = _components.OfType<Pizza>().FirstOrDefault(p => p.Name == pizzaName);
+
+                Console.WriteLine($"- {pizza.Name}");
+                Console.WriteLine("Préparer la pâte");
+
+                foreach (var ingredient in pizza.GetIngredients())
+                {
+                    Console.WriteLine($"\tAjouter {ingredient.Name}");
+                }
+
+                Console.WriteLine("Cuire la pizza\n");
+            }
+        }
+
 
 
         public List<PizzaComponent> GetComponents()
