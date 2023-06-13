@@ -35,12 +35,15 @@ namespace ProjetPizzaGroupe6
 
         public override void Display(int depth)
         {
-            Console.WriteLine($"{new string('-', depth)} {Name} : {_price} £ =>");
+            var indent = new string('\t', depth);
+
+            Console.WriteLine($"{new string('-', depth)} {Name} : {_price} €");
             foreach (var ingredient in _ingredients)
             {
-                Console.WriteLine($"{new string('\t', depth + 1)} {ingredient.Key} : {ingredient.Value}");
+                Console.WriteLine($"{indent}{ingredient.Key} {ingredient.Value}");
             }
         }
+
 
         public List<Ingredient> GetIngredients()
         {

@@ -41,14 +41,26 @@ namespace ProjetPizzaGroupe6
 
         public override void Display(int depth)
         {
-            foreach (var component in _components)
+
+            foreach (var pizzaEntry in _pizzaQuantities)
             {
-                component.Display(depth);
+                var pizzaName = pizzaEntry.Key;
+                var pizzaQuantity = pizzaEntry.Value;
+                var pizza = _components.OfType<Pizza>().FirstOrDefault(p => p.Name == pizzaName);
+
+                Console.WriteLine($"{pizzaQuantity} {pizzaName} : {pizzaQuantity * pizza.GetPrice()} €");
+
+                foreach (var ingredient in pizza.GetIngredients())
+                {
+                    Console.WriteLine($"\t{ingredient.Name} {ingredient.Quantity}");
+                }
             }
             Console.WriteLine("---------------------------------");
-            Console.WriteLine($"Prix total : {GetPrice()} £");
+            Console.WriteLine($"Prix total : {GetPrice()} €");
             Console.WriteLine("---------------------------------");
         }
+
+
 
         public List<PizzaComponent> GetComponents()
         {
