@@ -65,9 +65,16 @@ namespace ProjetPizzaGroupe6
                 Console.WriteLine("Liste des ingrédients utilisés :");
                 Console.WriteLine("#####################################");
                 var ingredients = GetIngredientsFromOrder(order);
-                foreach (var ingredient in ingredients)
+                foreach (var ingredientEntry in ingredients)
                 {
-                    ingredient.Display(2);
+                    var ingredientName = ingredientEntry.Key;
+                    var totalQuantity = ingredientEntry.Value.Sum(t => t.Item2);
+                    Console.WriteLine($"{ingredientName} : {totalQuantity}");
+                    foreach (var (pizza, quantity) in ingredientEntry.Value)
+                    {
+                        Console.WriteLine($"- {pizza.Name} : {quantity}");
+                    }
+                    Console.WriteLine();
                 }
             }
         }
@@ -90,7 +97,7 @@ namespace ProjetPizzaGroupe6
 
                 var quantityStr = pizzaInfo[0];
                 var pizzaName = string.Join(" ", pizzaInfo.Skip(1));
-                
+
                 if (!int.TryParse(quantityStr, out var quantity))
                 {
                     Console.WriteLine($"Quantité incorrecte : '{quantityStr}'.\n");
@@ -130,9 +137,9 @@ namespace ProjetPizzaGroupe6
             return order;
         }
 
-        private List<Ingredient> GetIngredientsFromOrder(OrderComposite order)
+        private Dictionary<string, List<(Pizza, int)>> GetIngredientsFromOrder(OrderComposite order)
         {
-            var ingredients = new Dictionary<string, Ingredient>();
+            var ingredients = new Dictionary<string, List<(Pizza, int)>>();
 
             foreach (var component in order.GetComponents())
             {
@@ -142,18 +149,39 @@ namespace ProjetPizzaGroupe6
                     {
                         if (ingredients.ContainsKey(ingredient.Name))
                         {
-                            ingredients[ingredient.Name].Quantity += ingredient.Quantity;
+                            var pizzaIngredientList = ingredients[ingredient.Name];
+                            bool foundPizza = false;
+
+                            for (int i = 0; i < pizzaIngredientList.Count; i++)
+                            {
+                                var pizzaIngredientTuple = pizzaIngredientList[i];
+
+                                if (pizzaIngredientTuple.Item1 == pizza)
+                                {
+                                    // Increment the ingredient quantity for the specific pizza
+                                    pizzaIngredientList[i] = (pizza, pizzaIngredientTuple.Item2 + 1);
+                                    foundPizza = true;
+                                    break;
+                                }
+                            }
+
+                            if (!foundPizza)
+                            {
+                                // Add a new tuple with the pizza and quantity
+                                pizzaIngredientList.Add((pizza, 1));
+                            }
                         }
                         else
                         {
-                            ingredients.Add(ingredient.Name, new Ingredient(ingredient.Name, ingredient.Quantity));
+                            // Create a new ingredient entry with the pizza and quantity
+                            ingredients.Add(ingredient.Name, new List<(Pizza, int)> { (pizza, 1) });
                         }
                     }
                 }
             }
 
-            return ingredients.Values.ToList();
+            return ingredients;
         }
-    }
 
+    }
 }
