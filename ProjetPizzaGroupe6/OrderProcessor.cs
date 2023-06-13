@@ -39,7 +39,7 @@ namespace ProjetPizzaGroupe6
             vegetariennePizza.AddIngredient("courgette", 5);
             vegetariennePizza.AddIngredient("poivron jaune", 1);
             vegetariennePizza.AddIngredient("tomates cerises", 6);
-            vegetariennePizza.AddIngredient("olives", 0); //1 4 Saisons, 1 Regina, 2 Végétarienne
+            vegetariennePizza.AddIngredient("olives", 1); //1+2 4 Saisons, 1 Regina, 2 Végétarienne
             _pizzas.Add(vegetariennePizza.Name, vegetariennePizza);
         }
 
@@ -86,6 +86,8 @@ namespace ProjetPizzaGroupe6
             var order = new OrderComposite();
             var pizzas = input.Split(',');
 
+            var pizzaQuantities = new Dictionary<string, int>(); // Track pizza quantities
+
             foreach (var pizzaStr in pizzas)
             {
                 var pizzaInfo = pizzaStr.Trim().Split(' ');
@@ -100,35 +102,65 @@ namespace ProjetPizzaGroupe6
                 var quantityStr = pizzaInfo[0];
                 var pizzaName = string.Join(" ", pizzaInfo.Skip(1));
 
+                if (quantityStr.Contains('+'))
+                {
+                    var quantityExpression = quantityStr.Split('+');
+                    var totalQuantity = 0;
+
+                    foreach (var expr in quantityExpression)
+                    {
+                        if (!int.TryParse(expr.Trim(), out var exprQuantity))
+                        {
+                            Console.WriteLine($"Quantité incorrecte : '{quantityStr}'.\n");
+                            order = null;
+                            break;
+                        }
+
+                        totalQuantity += exprQuantity;
+                    }
+
+                    if (order == null)
+                    {
+                        continue;
+                    }
+
+                    quantityStr = totalQuantity.ToString();
+                }
+
                 if (!int.TryParse(quantityStr, out var quantity))
                 {
                     Console.WriteLine($"Quantité incorrecte : '{quantityStr}'.\n");
                     order = null;
                     continue;
                 }
-
-                if (int.TryParse(pizzaInfo[0], out var pizzaQt))
-                {
-                    if (pizzaQt < 0)
-                    {
-                        Console.WriteLine("Invalid quantity: Quantity cannot be negative.");
-                        order = null;
-                        continue;
-                    }
-                }
-
+                
                 if (_pizzas.ContainsKey(pizzaName))
                 {
                     var pizza = _pizzas[pizzaName];
-                    if (int.TryParse(pizzaInfo[0], out var pizzaQuantity))
+                    if (int.TryParse(quantityStr, out var pizzaQuantity))
                     {
-                        for (var i = 0; i < pizzaQuantity; i++)
+                        if (pizzaQuantity < 0)
                         {
-                            order.AddComponent(pizza);
+                            Console.WriteLine($"Quantité incorrecte : '{quantityStr}'.\n");
+                            order = null;
+                            break;
                         }
+                        else
+                        {
+                            for (var i = 0; i < pizzaQuantity; i++)
+                            {
+                                order.AddComponent(pizza);
+                            }
 
-                        order.IncrementPizzaQuantity(pizzaName, pizzaQuantity); // Add the pizza quantity to the order
-
+                            if (pizzaQuantities.ContainsKey(pizzaName))
+                            {
+                                pizzaQuantities[pizzaName] += pizzaQuantity; // Increment the pizza quantity
+                            }
+                            else
+                            {
+                                pizzaQuantities.Add(pizzaName, pizzaQuantity); // Add the pizza quantity to the tracker
+                            }
+                        }
                     }
                 }
                 else
@@ -137,10 +169,20 @@ namespace ProjetPizzaGroupe6
                     order = null;
                     continue;
                 }
-
             }
+
+            // Consolidate the pizza quantities within the order
+            foreach (var pizzaEntry in pizzaQuantities)
+            {
+                var pizzaName = pizzaEntry.Key;
+                var pizzaQuantity = pizzaEntry.Value;
+
+                order.IncrementPizzaQuantity(pizzaName, pizzaQuantity);
+            }
+
             return order;
         }
+
 
         private Dictionary<string, List<(Pizza, int)>> GetIngredientsFromOrder(OrderComposite order)
         {
