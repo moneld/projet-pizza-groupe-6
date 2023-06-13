@@ -57,6 +57,10 @@ namespace ProjetPizzaGroupe6
                 Console.WriteLine("#####################################");
                 order.DisplayInstructions();
                 Console.WriteLine("\n#####################################");
+                Console.WriteLine("Pizzas disponibles\r\n :");
+                Console.WriteLine("#####################################");
+                order.DisplayAvailablePizzas();
+                Console.WriteLine("#####################################");
                 Console.WriteLine("Liste des ingrédients utilisés :");
                 Console.WriteLine("#####################################");
                 var ingredients = GetIngredientsFromOrder(order);

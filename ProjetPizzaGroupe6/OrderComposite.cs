@@ -80,11 +80,52 @@ namespace ProjetPizzaGroupe6
             }
         }
 
-
-
         public List<PizzaComponent> GetComponents()
         {
             return _components;
         }
+        public void DisplayAvailablePizzas()
+        {
+            Console.WriteLine("La pizzeria est capable de produire les pizzas suivantes:");
+
+            Dictionary<string, decimal> availablePizzas = new Dictionary<string, decimal>
+            {
+                { "Regina", 8m },
+                { "4 Saisons", 9m },
+                { "Végétarienne", 7.50m }
+            };
+
+            foreach (var pizzaEntry in availablePizzas)
+            {
+                var pizzaName = pizzaEntry.Key;
+                var pizzaPrice = pizzaEntry.Value;
+                var pizza = GetPizzaByName(pizzaName);
+
+                Console.WriteLine($"● {pizzaName} => {pizzaPrice} €");
+
+                foreach (var ingredient in pizza.GetIngredients())
+                {
+                    Console.WriteLine($"○ {ingredient.Quantity} {ingredient.Name}");
+                }
+
+                Console.WriteLine();
+            }
+        }
+
+        private Pizza GetPizzaByName(string name)
+        {
+            switch (name)
+            {
+                case "Regina":
+                    return new ReginaPizza();
+                case "4 Saisons":
+                    return new FourSeasonsPizza();
+                case "Végétarienne":
+                    return new VegetarianPizza();
+                default:
+                    return null;
+            }
+        }
+
     }
 }
