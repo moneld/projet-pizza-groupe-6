@@ -68,7 +68,8 @@ string[] items = commands.Split(',');
 int nb = items.Length;
 
 
-Console.WriteLine(nb);
+
+List<string> pizzasCommander = new List<string>();
 for (int i = 0; i < nb; i++)
 {
     string[] item = items[i].Split(' ');
@@ -76,17 +77,18 @@ for (int i = 0; i < nb; i++)
     
     if(item[1].ToLower()== "regina")
     {
-        Console.WriteLine("Vous avez commander " + item[0] + " pizza " + item[1]);
+        pizzasCommander.Add(item[0] + " pizza " + item[1]);
         
     }
     if(item[1].ToLower()== "4saisons")
     {
-        Console.WriteLine("Vous avez commander " + item[0] + " pizza " + item[1]);
+        pizzasCommander.Add(item[0] + " pizza " + item[1]);
         
     }
     if(item[1].ToLower()== "végétarienne")
     {
-        Console.WriteLine("Vous avez commander " + item[0] + " pizza " + item[1]);
+        pizzasCommander.Add(item[0] + " pizza " + item[1]);
         
     }
 }
+Console.WriteLine("Vous avez commander : " + string.Join(", ", pizzasCommander));

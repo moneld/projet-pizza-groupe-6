@@ -27,11 +27,12 @@ public class PizzaMenuService
         foreach (Pizza element in pizzas)
         {
            
-            Console.Write(element.nom + " : " + element.prix + " € :" );
+            Console.Write(element.nom + " => " + element.prix + " € \n" );
           
             foreach (string el in element.ingrediants)
             {
-                Console.Write(el + ",") ;
+                Console.Write( "\t -" +el + ",\n") ;
+                
             }
             Console.WriteLine();
             
