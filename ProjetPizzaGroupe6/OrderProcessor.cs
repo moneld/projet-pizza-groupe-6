@@ -8,165 +8,151 @@ namespace ProjetPizzaGroupe6
 {
     public class OrderProcessor
     {
-        private Dictionary<string, PizzaComponent> _pizzas;
+        private Dictionary<string, Pizza> _pizzas;
 
         public OrderProcessor()
         {
-            _pizzas = new Dictionary<string, PizzaComponent>();
+            _pizzas = new Dictionary<string, Pizza>();
 
-            // Création des pizzas disponibles
-            var reginaPizza = new Pizza("Regina");
-            reginaPizza.AddComponent(new Ingredient("Tomate", 150, new Dictionary<string, int>()));
-            reginaPizza.AddComponent(new Ingredient("Mozzarella", 125, new Dictionary<string, int>()));
-            reginaPizza.AddComponent(new Ingredient("Fromage râpé", 100, new Dictionary<string, int>()));
-            reginaPizza.AddComponent(new Ingredient("Jambon", 2, new Dictionary<string, int>()));
-            reginaPizza.AddComponent(new Ingredient("Champignons frais", 4, new Dictionary<string, int>()));
-            reginaPizza.AddComponent(new Ingredient("Huile d'olive", 2, new Dictionary<string, int>()));
+            // Initialize available pizzas
+            var reginaPizza = new Pizza("Regina", 8);
+            reginaPizza.AddIngredient("tomate", 150);
+            reginaPizza.AddIngredient("mozzarella", 125);
+            reginaPizza.AddIngredient("fromage râpé", 100);
+            reginaPizza.AddIngredient("jambon", 2);
+            reginaPizza.AddIngredient("champignons frais", 4);
+            reginaPizza.AddIngredient("huile d'olive", 2);
+            _pizzas.Add(reginaPizza.Name, reginaPizza);
 
-            var quatreSaisonsPizza = new Pizza("4 Saisons");
-            quatreSaisonsPizza.AddComponent(new Ingredient("Tomate", 150, new Dictionary<string, int>()));
-            quatreSaisonsPizza.AddComponent(new Ingredient("Mozzarella", 125, new Dictionary<string, int>()));
-            quatreSaisonsPizza.AddComponent(new Ingredient("Jambon", 2, new Dictionary<string, int>()));
-            quatreSaisonsPizza.AddComponent(new Ingredient("Champignons frais", 100, new Dictionary<string, int>()));
-            quatreSaisonsPizza.AddComponent(new Ingredient("Poivron", 0.5m, new Dictionary<string, int>()));
-            quatreSaisonsPizza.AddComponent(new Ingredient("Olives", 1, new Dictionary<string, int>()));
+            var quatreSaisonsPizza = new Pizza("4 Saisons", 9);
+            quatreSaisonsPizza.AddIngredient("tomate", 150);
+            quatreSaisonsPizza.AddIngredient("mozzarella", 125);
+            quatreSaisonsPizza.AddIngredient("jambon", 2);
+            quatreSaisonsPizza.AddIngredient("champignons frais", 100);
+            quatreSaisonsPizza.AddIngredient("poivron", 5);
+            quatreSaisonsPizza.AddIngredient("olives", 1);
+            _pizzas.Add(quatreSaisonsPizza.Name, quatreSaisonsPizza);
 
-            var vegetariennePizza = new Pizza("Végétarienne");
-            vegetariennePizza.AddComponent(new Ingredient("Tomate", 150, new Dictionary<string, int>()));
-            vegetariennePizza.AddComponent(new Ingredient("Mozzarella", 100, new Dictionary<string, int>()));
-            vegetariennePizza.AddComponent(new Ingredient("Courgette", 0.5m, new Dictionary<string, int>()));
-            vegetariennePizza.AddComponent(new Ingredient("Poivron jaune", 1, new Dictionary<string, int>()));
-            vegetariennePizza.AddComponent(new Ingredient("Tomates cerises", 6, new Dictionary<string, int>()));
-            vegetariennePizza.AddComponent(new Ingredient("Olives", 1, new Dictionary<string, int>()));
-
-            _pizzas.Add("Regina", reginaPizza);
-            _pizzas.Add("4 Saisons", quatreSaisonsPizza);
-            _pizzas.Add("Végétarienne", vegetariennePizza);
+            var vegetariennePizza = new Pizza("Végétarienne", 7.50m);
+            vegetariennePizza.AddIngredient("tomate", 150);
+            vegetariennePizza.AddIngredient("mozzarella", 100);
+            vegetariennePizza.AddIngredient("courgette", 5);
+            vegetariennePizza.AddIngredient("poivron jaune", 1);
+            vegetariennePizza.AddIngredient("tomates cerises", 6);
+            vegetariennePizza.AddIngredient("olives", 0); //1 4 Saisons, 1 Regina
+            _pizzas.Add(vegetariennePizza.Name, vegetariennePizza);
         }
 
-        public void ProcessOrder(string order)
+        public void ProcessOrder(string input)
         {
-            // Analyser la commande
-            var pizzaQuantities = new Dictionary<string, int>();
-            var pizzaDetails = order.Split(',');
-
-            foreach (var pizzaDetail in pizzaDetails)
+            var order = ParseOrder(input);
+            if (order != null)
             {
-                var pizzaInfo = pizzaDetail.Trim().Split(' ');
+                Console.WriteLine("\n#####################################");
+                Console.WriteLine("Facture :");
+                Console.WriteLine("#####################################");
+                order.Display(0);
+                Console.WriteLine("\n#####################################");
+                Console.WriteLine("Instructions de préparation :");
+                Console.WriteLine("#####################################");
+                foreach (var component in order.GetComponents())
+                {
+                    component.Display(0);
+                    Console.WriteLine("Cuire la pizza\n");
+                }
+
+                Console.WriteLine("\n#####################################");
+                Console.WriteLine("Liste des ingrédients utilisés :");
+                Console.WriteLine("#####################################");
+                var ingredients = GetIngredientsFromOrder(order);
+                foreach (var ingredient in ingredients)
+                {
+                    ingredient.Display(2);
+                }
+            }
+        }
+
+        private OrderComposite ParseOrder(string input)
+        {
+            var order = new OrderComposite();
+            var pizzas = input.Split(',');
+
+            foreach (var pizzaStr in pizzas)
+            {
+                var pizzaInfo = pizzaStr.Trim().Split(' ');
 
                 if (pizzaInfo.Length < 2)
                 {
-                    Console.WriteLine($"Commande incorrecte : '{pizzaDetail}'.\n");
+                    Console.WriteLine($"Commande incorrecte : '{pizzaStr}'.\n");
+                    order = null;
                     continue;
                 }
 
                 var quantityStr = pizzaInfo[0];
                 var pizzaName = string.Join(" ", pizzaInfo.Skip(1));
-
+                
                 if (!int.TryParse(quantityStr, out var quantity))
                 {
                     Console.WriteLine($"Quantité incorrecte : '{quantityStr}'.\n");
+                    order = null;
                     continue;
+                }
+
+                if (int.TryParse(pizzaInfo[0], out var pizzaQt))
+                {
+                    if (pizzaQt < 0)
+                    {
+                        Console.WriteLine("Invalid quantity: Quantity cannot be negative.");
+                        order = null;
+                        continue;
+                    }
                 }
 
                 if (_pizzas.ContainsKey(pizzaName))
                 {
-                    if (pizzaQuantities.ContainsKey(pizzaName))
+                    var pizza = _pizzas[pizzaName];
+                    if (int.TryParse(pizzaInfo[0], out var pizzaQuantity))
                     {
-                        pizzaQuantities[pizzaName] += quantity;
-                    }
-                    else
-                    {
-                        pizzaQuantities.Add(pizzaName, quantity);
+                        for (var i = 0; i < pizzaQuantity; i++)
+                        {
+                            order.AddComponent(pizza);
+                        }
                     }
                 }
                 else
                 {
                     Console.WriteLine($"La pizza '{pizzaName}' n'est pas disponible.\n");
+                    order = null;
+                    continue;
                 }
+
             }
+            return order;
+        }
 
-            // Créer la commande composite
-            var orderComposite = new Pizza("Commande :");
+        private List<Ingredient> GetIngredientsFromOrder(OrderComposite order)
+        {
+            var ingredients = new Dictionary<string, Ingredient>();
 
-            foreach (var pizzaQuantity in pizzaQuantities)
+            foreach (var component in order.GetComponents())
             {
-                var pizzaName = pizzaQuantity.Key;
-                var quantity = pizzaQuantity.Value;
-                if (_pizzas.ContainsKey(pizzaName))
+                if (component is Pizza pizza)
                 {
-                    var pizza = _pizzas[pizzaName];
-
-                    for (int i = 0; i < quantity; i++)
+                    foreach (var ingredient in pizza.GetIngredients())
                     {
-                        orderComposite.AddComponent(pizza);
+                        if (ingredients.ContainsKey(ingredient.Name))
+                        {
+                            ingredients[ingredient.Name].Quantity += ingredient.Quantity;
+                        }
+                        else
+                        {
+                            ingredients.Add(ingredient.Name, new Ingredient(ingredient.Name, ingredient.Quantity));
+                        }
                     }
                 }
-                else
-                {
-                    Console.WriteLine($"La pizza '{pizzaName}' n'est pas disponible.");
-                }
             }
 
-
-            // Afficher la facture
-            Console.WriteLine("\n##################################### ");
-            Console.WriteLine("Facture :");
-            Console.WriteLine("#####################################");
-            orderComposite.Display(0);
-            decimal totalPrice = orderComposite.GetPrice();
-            Console.WriteLine("\n-------------------------------------");
-            Console.WriteLine($"Prix total : {totalPrice} €");
-            Console.WriteLine("-------------------------------------\n");
-            // Afficher les instructions de préparation
-            DisplayPreparationInstructions(orderComposite);
-
-            // Afficher les ingrédients utilisés
-            
-            DisplayIngredientUsage(orderComposite);
-
-        }
-
-        private void DisplayPreparationInstructions(PizzaComponent component)
-        {
-            if (component is Pizza pizza)
-            {
-                Console.WriteLine("\n#####################################");
-                pizza.Display(1);
-                Console.WriteLine("Instructions de préparation :");
-                Console.WriteLine("#####################################");
-                Console.WriteLine("Préparer la pâte");
-
-                foreach (var subComponent in pizza.GetIngredients())
-                {
-                    Console.WriteLine($"Ajouter {subComponent.Key}");
-                }
-
-                Console.WriteLine("Cuire la pizza");
-            }
-        }
-
-        private void DisplayIngredientUsage(PizzaComponent component)
-        {
-            if (component is Pizza pizza)
-            {
-                Console.WriteLine("\n#####################################");
-                Console.WriteLine(pizza.Name);
-                pizza.Display(1);
-                Console.WriteLine("Ingrédients utilisés :");//1 4 Saisons, 1 Végétarienne
-                Console.WriteLine("\n#####################################");
-                var ingredients = pizza.GetIngredients();
-
-                foreach (var ingredient in ingredients)
-                {
-                    Console.WriteLine($"{ingredient.Key} : {ingredient.Value}");
-
-                   /* foreach (var subComponent in pizza.GetIngredients())
-                    {
-                        Console.WriteLine($"\t {subComponent.Key} : {subComponent.Value}");
-                    }*/
-                }
-            }
+            return ingredients.Values.ToList();
         }
     }
 

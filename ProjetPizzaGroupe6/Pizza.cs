@@ -8,65 +8,53 @@ namespace ProjetPizzaGroupe6
 {
     public class Pizza : PizzaComponent
     {
-        private List<PizzaComponent> _components;
+        private Dictionary<string, int> _ingredients;
+        private decimal _price;
 
-        public Pizza(string name) : base(name)
+        public string Name { get; set; }
+
+        public Pizza(string name, decimal price)
         {
-            _components = new List<PizzaComponent>();
+            Name = name;
+            _price = price;
+            _ingredients = new Dictionary<string, int>();
         }
 
-        public void AddComponent(PizzaComponent component)
+        public void AddIngredient(string ingredient, int quantity)
         {
-            _components.Add(component);
-        }
-
-        public override void Display(int depth)
-        {
-            if(Name!=null)
-                Console.WriteLine(new string('\t', depth) + Name+ " => ");
+            if (_ingredients.ContainsKey(ingredient))
+                _ingredients[ingredient] += quantity;
             else
-                Console.WriteLine(new string('\t', depth) + Name);
-
-            foreach (var component in _components)
-            {
-                component.Display(depth + 1);
-            }
+                _ingredients.Add(ingredient, quantity);
         }
 
         public override decimal GetPrice()
         {
-            decimal totalPrice = 0;
-
-            foreach (var component in _components)
-            {
-                totalPrice += component.GetPrice();
-            }
-
-            return totalPrice;
+            return _price;
         }
 
-        public override Dictionary<string, int> GetIngredients()
+        public override void Display(int depth)
         {
-            Dictionary<string, int> ingredients = new Dictionary<string, int>();
-
-            foreach (var component in _components)
+            Console.WriteLine($"{new string('-', depth)} {Name} : {_price} £ =>");
+            foreach (var ingredient in _ingredients)
             {
-                var componentIngredients = component.GetIngredients();
+                Console.WriteLine($"{new string('\t', depth + 1)} {ingredient.Key} : {ingredient.Value}");
+            }
+        }
 
-                foreach (var ingredient in componentIngredients)
-                {
-                    if (ingredients.ContainsKey(ingredient.Key))
-                    {
-                        ingredients[ingredient.Key] += ingredient.Value;
-                    }
-                    else
-                    {
-                        ingredients.Add(ingredient.Key, ingredient.Value);
-                    }
-                }
+        public List<Ingredient> GetIngredients()
+        {
+            var ingredientsList = new List<Ingredient>();
+
+            foreach (var ingredient in _ingredients)
+            {
+                var ingredientName = ingredient.Key;
+                var ingredientQuantity = ingredient.Value;
+                var ingredientObj = new Ingredient(ingredientName, ingredientQuantity);
+                ingredientsList.Add(ingredientObj);
             }
 
-            return ingredients;
+            return ingredientsList;
         }
     }
 

@@ -8,28 +8,23 @@ namespace ProjetPizzaGroupe6
 {
     public class Ingredient : PizzaComponent
     {
-        private decimal _price;
-        private Dictionary<string, int> _ingredients;
+        public string Name { get; set; }
+        public int Quantity { get; set; }
 
-        public Ingredient(string name, decimal price, Dictionary<string, int> ingredients) : base(name)
+        public Ingredient(string name, int quantity)
         {
-            _price = price;
-            _ingredients = ingredients;
-        }
-
-        public override void Display(int depth)
-        {
-            Console.WriteLine(new string('\t', depth) + Name);
+            Name = name;
+            Quantity = quantity;
         }
 
         public override decimal GetPrice()
         {
-            return _price;
+            return 0; // Ingredients don't have a price
         }
 
-        public override Dictionary<string, int> GetIngredients()
+        public override void Display(int depth)
         {
-            return _ingredients;
+            Console.WriteLine($"{new string('-', depth)} {Name} : {Quantity}");
         }
     }
 }

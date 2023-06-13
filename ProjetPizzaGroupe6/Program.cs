@@ -6,11 +6,15 @@ public class Program
     {
         var orderProcessor = new OrderProcessor();
 
-        Console.WriteLine("Veuillez entrer votre commande :");
-        var order = Console.ReadLine();
+        while (true)
+        {
+            Console.WriteLine("Entrez une commande (ou 'exit' pour quitter) :");
+            var input = Console.ReadLine();
 
-        orderProcessor.ProcessOrder(order);
+            if (input.ToLower() == "exit")
+                break;
 
-        Console.ReadLine();
+            orderProcessor.ProcessOrder(input);
+        }
     }
 }
