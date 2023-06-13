@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/ProjetPizzaGroupe6.csproj": {}
+    "C:\\Users\\winnie\\Documents\\ETUDES\\LAB\\MASTER 1\\Semestre 2\\Design patterns\\projet\\projet-pizza-groupe-6\\ProjetPizzaGroupe6\\ProjetPizzaGroupe6.csproj": {}
   },
   "projects": {
-    "/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/ProjetPizzaGroupe6.csproj": {
+    "C:\\Users\\winnie\\Documents\\ETUDES\\LAB\\MASTER 1\\Semestre 2\\Design patterns\\projet\\projet-pizza-groupe-6\\ProjetPizzaGroupe6\\ProjetPizzaGroupe6.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/ProjetPizzaGroupe6.csproj",
+        "projectUniqueName": "C:\\Users\\winnie\\Documents\\ETUDES\\LAB\\MASTER 1\\Semestre 2\\Design patterns\\projet\\projet-pizza-groupe-6\\ProjetPizzaGroupe6\\ProjetPizzaGroupe6.csproj",
         "projectName": "ProjetPizzaGroupe6",
-        "projectPath": "/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/ProjetPizzaGroupe6.csproj",
-        "packagesPath": "/home/moneld/.nuget/packages/",
-        "outputPath": "/home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/obj/",
+        "projectPath": "C:\\Users\\winnie\\Documents\\ETUDES\\LAB\\MASTER 1\\Semestre 2\\Design patterns\\projet\\projet-pizza-groupe-6\\ProjetPizzaGroupe6\\ProjetPizzaGroupe6.csproj",
+        "packagesPath": "C:\\Users\\winnie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\winnie\\Documents\\ETUDES\\LAB\\MASTER 1\\Semestre 2\\Design patterns\\projet\\projet-pizza-groupe-6\\ProjetPizzaGroupe6\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/moneld/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\winnie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -43,7 +45,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -52,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.116/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
