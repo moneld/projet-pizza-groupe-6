@@ -9,15 +9,29 @@ namespace ProjetPizzaGroupe6
     public class OrderComposite : PizzaComponent
     {
         private List<PizzaComponent> _components;
+        private Dictionary<string, int> _pizzaQuantities; // Track pizza quantities
 
         public OrderComposite()
         {
             _components = new List<PizzaComponent>();
+            _pizzaQuantities = new Dictionary<string, int>(); // Initialize the pizza quantities dictionary
         }
 
         public void AddComponent(PizzaComponent component)
         {
             _components.Add(component);
+        }
+
+        public void IncrementPizzaQuantity(string pizzaName, int quantity)
+        {
+            if (_pizzaQuantities.ContainsKey(pizzaName))
+            {
+                _pizzaQuantities[pizzaName] += quantity;
+            }
+            else
+            {
+                _pizzaQuantities.Add(pizzaName, quantity);
+            }
         }
 
         public override decimal GetPrice()

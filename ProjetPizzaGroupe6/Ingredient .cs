@@ -24,7 +24,7 @@ namespace ProjetPizzaGroupe6
 
         public override void Display(int depth)
         {
-            Console.WriteLine($"{new string('-', depth)} {Name} : {Quantity}");
+            Console.WriteLine($"{new string('\t', depth)} {Name} : {Quantity}");
         }
     }
 }

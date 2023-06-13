@@ -39,7 +39,7 @@ namespace ProjetPizzaGroupe6
             vegetariennePizza.AddIngredient("courgette", 5);
             vegetariennePizza.AddIngredient("poivron jaune", 1);
             vegetariennePizza.AddIngredient("tomates cerises", 6);
-            vegetariennePizza.AddIngredient("olives", 0); //1 4 Saisons, 1 Regina
+            vegetariennePizza.AddIngredient("olives", 0); //1 4 Saisons, 1 Regina, 2 Végétarienne
             _pizzas.Add(vegetariennePizza.Name, vegetariennePizza);
         }
 
@@ -55,8 +55,10 @@ namespace ProjetPizzaGroupe6
                 Console.WriteLine("\n#####################################");
                 Console.WriteLine("Instructions de préparation :");
                 Console.WriteLine("#####################################");
+                
                 foreach (var component in order.GetComponents())
                 {
+                    Console.WriteLine("\nPréparer la pâte");
                     component.Display(0);
                     Console.WriteLine("Cuire la pizza\n");
                 }
@@ -124,6 +126,9 @@ namespace ProjetPizzaGroupe6
                         {
                             order.AddComponent(pizza);
                         }
+
+                        order.IncrementPizzaQuantity(pizzaName, pizzaQuantity); // Add the pizza quantity to the order
+
                     }
                 }
                 else
