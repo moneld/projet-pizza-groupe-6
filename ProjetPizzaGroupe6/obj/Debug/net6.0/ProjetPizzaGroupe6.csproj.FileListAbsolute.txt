@@ -13,3 +13,18 @@
 /home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/obj/Debug/net6.0/ref/ProjetPizzaGroupe6.dll
 /home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/obj/Debug/net6.0/ProjetPizzaGroupe6.pdb
 /home/moneld/Labdev/net/ProjetPizzaGroupe6/ProjetPizzaGroupe6/obj/Debug/net6.0/ProjetPizzaGroupe6.genruntimeconfig.cache
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\bin\Debug\net6.0\ProjetPizzaGroupe6.exe
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\bin\Debug\net6.0\ProjetPizzaGroupe6.deps.json
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\bin\Debug\net6.0\ProjetPizzaGroupe6.runtimeconfig.json
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\bin\Debug\net6.0\ProjetPizzaGroupe6.dll
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\bin\Debug\net6.0\ProjetPizzaGroupe6.pdb
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\obj\Debug\net6.0\ProjetPizzaGroupe6.csproj.AssemblyReference.cache
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\obj\Debug\net6.0\ProjetPizzaGroupe6.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\obj\Debug\net6.0\ProjetPizzaGroupe6.AssemblyInfoInputs.cache
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\obj\Debug\net6.0\ProjetPizzaGroupe6.AssemblyInfo.cs
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\obj\Debug\net6.0\ProjetPizzaGroupe6.csproj.CoreCompileInputs.cache
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\obj\Debug\net6.0\ProjetPizzaGroupe6.dll
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\obj\Debug\net6.0\refint\ProjetPizzaGroupe6.dll
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\obj\Debug\net6.0\ProjetPizzaGroupe6.pdb
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\obj\Debug\net6.0\ProjetPizzaGroupe6.genruntimeconfig.cache
+C:\Users\winnie\Documents\ETUDES\LAB\MASTER 1\Semestre 2\Design patterns\projet\projet-pizza-groupe-6\ProjetPizzaGroupe6\obj\Debug\net6.0\ref\ProjetPizzaGroupe6.dll
