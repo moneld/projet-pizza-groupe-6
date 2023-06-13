@@ -71,7 +71,9 @@ namespace ProjetPizzaGroupe6
                     Console.WriteLine($"{ingredientName} : {totalQuantity}");
                     foreach (var (pizza, quantity) in ingredientEntry.Value)
                     {
-                        Console.WriteLine($"- {pizza.Name} : {quantity}");
+                        var ingredientQuantity = pizza.GetIngredients()
+                            .FirstOrDefault(i => i.Name == ingredientName)?.Quantity ?? 0;
+                        Console.WriteLine($"- {pizza.Name} : {ingredientQuantity * quantity}");
                     }
                     Console.WriteLine();
                 }
@@ -180,7 +182,6 @@ namespace ProjetPizzaGroupe6
             return order;
         }
 
-
         private Dictionary<string, List<(Pizza, int)>> GetIngredientsFromOrder(OrderComposite order)
         {
             var ingredients = new Dictionary<string, List<(Pizza, int)>>();
@@ -191,19 +192,21 @@ namespace ProjetPizzaGroupe6
                 {
                     foreach (var ingredient in pizza.GetIngredients())
                     {
-                        if (ingredients.ContainsKey(ingredient.Name))
+                        var ingredientNameCopy = ingredient.Name; // Create a copy of the variable
+
+                        if (ingredients.ContainsKey(ingredientNameCopy))
                         {
-                            var pizzaIngredientList = ingredients[ingredient.Name];
+                            var pizzaIngredientList = ingredients[ingredientNameCopy];
                             bool foundPizza = false;
 
                             for (int i = 0; i < pizzaIngredientList.Count; i++)
                             {
-                                var pizzaIngredientTuple = pizzaIngredientList[i];
+                                var (existingPizza, quantity) = pizzaIngredientList[i];
 
-                                if (pizzaIngredientTuple.Item1 == pizza)
+                                if (existingPizza == pizza)
                                 {
                                     // Increment the ingredient quantity for the specific pizza
-                                    pizzaIngredientList[i] = (pizza, pizzaIngredientTuple.Item2 + 1);
+                                    pizzaIngredientList[i] = (existingPizza, quantity + 1);
                                     foundPizza = true;
                                     break;
                                 }
@@ -218,7 +221,7 @@ namespace ProjetPizzaGroupe6
                         else
                         {
                             // Create a new ingredient entry with the pizza and quantity
-                            ingredients.Add(ingredient.Name, new List<(Pizza, int)> { (pizza, 1) });
+                            ingredients.Add(ingredientNameCopy, new List<(Pizza, int)> { (pizza, 1) });
                         }
                     }
                 }
@@ -226,6 +229,5 @@ namespace ProjetPizzaGroupe6
 
             return ingredients;
         }
-
     }
 }
