@@ -14,7 +14,6 @@ namespace ProjetPizzaGroupe6
         {
             _pizzas = new Dictionary<string, Pizza>();
 
-            // Initialize available pizzas
             var reginaPizza = new Pizza("Regina", 8);
             reginaPizza.AddIngredient("tomate", 150);
             reginaPizza.AddIngredient("mozzarella", 125);
@@ -56,10 +55,6 @@ namespace ProjetPizzaGroupe6
                 Console.WriteLine("Instructions de préparation :");
                 Console.WriteLine("#####################################");
                 order.DisplayInstructions();
-                Console.WriteLine("\n#####################################");
-                Console.WriteLine("Pizzas disponibles\r\n :");
-                Console.WriteLine("#####################################");
-                order.DisplayAvailablePizzas();
                 Console.WriteLine("#####################################");
                 Console.WriteLine("Liste des ingrédients utilisés :");
                 Console.WriteLine("#####################################");
@@ -228,6 +223,49 @@ namespace ProjetPizzaGroupe6
             }
 
             return ingredients;
+        }
+
+        public void DisplayAvailablePizzas()
+        {
+            Console.WriteLine("La pizzeria est capable de produire les pizzas suivantes:");
+
+            Dictionary<string, decimal> availablePizzas = new Dictionary<string, decimal>
+            {
+                { "Regina", 8m },
+                { "4 Saisons", 9m },
+                { "Végétarienne", 7.50m }
+            };
+
+            foreach (var pizzaEntry in availablePizzas)
+            {
+                var pizzaName = pizzaEntry.Key;
+                var pizzaPrice = pizzaEntry.Value;
+                var pizza = GetPizzaByName(pizzaName);
+
+                Console.WriteLine($"● {pizzaName} => {pizzaPrice} €");
+
+                foreach (var ingredient in pizza.GetIngredients())
+                {
+                    Console.WriteLine($"○ {ingredient.Quantity} {ingredient.Name}");
+                }
+
+                Console.WriteLine();
+            }
+        }
+
+        private Pizza GetPizzaByName(string name)
+        {
+            switch (name)
+            {
+                case "Regina":
+                    return new ReginaPizza();
+                case "4 Saisons":
+                    return new FourSeasonsPizza();
+                case "Végétarienne":
+                    return new VegetarianPizza();
+                default:
+                    return null;
+            }
         }
     }
 }
