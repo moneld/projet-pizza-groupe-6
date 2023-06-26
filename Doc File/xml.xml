@@ -1,0 +1,18 @@
+<orders>
+  <order>
+    <pizza>Regina</pizza>
+    <quantity>2</quantity>
+  </order>
+  <order>
+    <pizza>4 Saisons</pizza>
+    <quantity>1</quantity>
+  </order>
+  <order>
+    <pizza>Végétarienne</pizza>
+    <quantity>3</quantity>
+  </order>
+  <order>
+    <pizza>Végétarienne</pizza>
+    <quantity>1</quantity>
+  </order>
+</orders>

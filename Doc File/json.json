@@ -1,0 +1,20 @@
+{
+  "order": [
+    {
+      "pizza": "Regina",
+      "quantite": 2
+    },
+    {
+      "pizza": "4 Saisons",
+      "quantite": 1
+    },
+    {
+      "pizza": "Végétarienne",
+      "quantite": 3
+    },
+    {
+      "pizza": "Végétarienne",
+      "quantite": 1
+    }
+  ]
+}
