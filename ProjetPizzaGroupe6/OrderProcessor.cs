@@ -61,16 +61,28 @@ namespace ProjetPizzaGroupe6
                 foreach (var ingredientEntry in ingredients)
                 {
                     var ingredientName = ingredientEntry.Key;
-                    var totalQuantity = ingredientEntry.Value.Sum(t => t.Item2);
-                    Console.WriteLine($"{ingredientName} : {totalQuantity}");
+
+                    var sumTotalQuantity = 0;
+
                     foreach (var (pizza, quantity) in ingredientEntry.Value)
                     {
                         var ingredientQuantity = pizza.GetIngredients()
                             .FirstOrDefault(i => i.Name == ingredientName)?.Quantity ?? 0;
-                        Console.WriteLine($"- {pizza.Name} : {ingredientQuantity * quantity}");
+                        var ingredientTotal = ingredientQuantity * quantity;
+                        sumTotalQuantity += ingredientTotal;
                     }
-                    Console.WriteLine();
+
+                    Console.WriteLine($"{ingredientName} : {sumTotalQuantity}");
+
+                    foreach (var (pizza, quantity) in ingredientEntry.Value)
+                    {
+                        var ingredientQuantity = pizza.GetIngredients()
+                            .FirstOrDefault(i => i.Name == ingredientName)?.Quantity ?? 0;
+                        var ingredientTotal = ingredientQuantity * quantity;
+                        Console.WriteLine($"- {pizza.Name} : {ingredientTotal}");
+                    }
                 }
+
 
                 Console.WriteLine("\nVoulez-vous enregistrer la facture ? (oui/non)");
                 var saveInvoice = Console.ReadLine()?.ToLower();
