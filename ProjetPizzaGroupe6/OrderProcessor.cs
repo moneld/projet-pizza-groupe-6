@@ -1,8 +1,7 @@
-﻿using System;
+﻿using System.Xml.Serialization;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Text.Json;
 
 namespace ProjetPizzaGroupe6
 {
@@ -75,12 +74,108 @@ namespace ProjetPizzaGroupe6
             }
         }
 
+        private static List<string> LoadOrdersFromJsonFile(string filePath)
+        {
+            try
+            {
+                var json = File.ReadAllText(filePath);
+                var ordersObject = JsonSerializer.Deserialize<JsonDocument>(json);
+                var orders = new Dictionary<string, int>();
+
+                if (ordersObject.RootElement.TryGetProperty("order", out var orderArray))
+                {
+                    foreach (var orderElement in orderArray.EnumerateArray())
+                    {
+                        var pizza = orderElement.GetProperty("pizza").GetString();
+                        var quantity = orderElement.GetProperty("quantite").GetInt32();
+
+                        if (orders.ContainsKey(pizza))
+                        {
+                            orders[pizza] += quantity;
+                        }
+                        else
+                        {
+                            orders[pizza] = quantity;
+                        }
+                    }
+                }
+
+                var orderStrings = orders.Select(kvp => $"{kvp.Value} {kvp.Key}").ToList();
+                return orderStrings;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while loading orders from the JSON file: {ex.Message}");
+                return null;
+            }
+        }
+
+        private static List<string> LoadOrdersFromXmlFile(string filePath)
+        {
+            try
+            {
+                var serializer = new XmlSerializer(typeof(List<string>));
+                using (var fileStream = new FileStream(filePath, FileMode.Open))
+                {
+                    var orders = (List<string>)serializer.Deserialize(fileStream);
+                    return orders;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Une erreur s'est produite lors du chargement des commandes depuis le fichier XML : {ex.Message}");
+                return null;
+            }
+        }
+        public void VerifyFilePath(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                var fileExtension = Path.GetExtension(filePath);
+
+                if (fileExtension.Equals(".json", StringComparison.OrdinalIgnoreCase))
+                {
+                    var orders = LoadOrdersFromJsonFile(filePath);
+                    if (orders != null)
+                    {
+                        var allOrders = string.Join(", ", orders);
+                        Console.WriteLine("\n#####################################");
+                        Console.WriteLine($"Commande chargée : ");
+                        Console.WriteLine(allOrders);
+                        Console.WriteLine("#####################################");
+                        ProcessOrder(allOrders);
+                    }
+                }
+                else if (fileExtension.Equals(".xml", StringComparison.OrdinalIgnoreCase))
+                {
+                    var orders = LoadOrdersFromXmlFile(filePath);
+                    if (orders != null)
+                    {
+                        var allOrders = string.Join(", ", orders);
+                        Console.WriteLine("\n#####################################");
+                        Console.WriteLine($"Commande chargée : ");
+                        Console.WriteLine(allOrders);
+                        Console.WriteLine("#####################################");
+                        ProcessOrder(allOrders);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Le format de fichier n'est pas pris en charge.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Le fichier spécifié n'existe pas.");
+            }
+        }
+
         private OrderComposite ParseOrder(string input)
         {
             var order = new OrderComposite();
             var pizzas = input.Split(',');
 
-            var pizzaQuantities = new Dictionary<string, int>(); // Track pizza quantities
+            var pizzaQuantities = new Dictionary<string, int>();
 
             foreach (var pizzaStr in pizzas)
             {
@@ -148,11 +243,11 @@ namespace ProjetPizzaGroupe6
 
                             if (pizzaQuantities.ContainsKey(pizzaName))
                             {
-                                pizzaQuantities[pizzaName] += pizzaQuantity; // Increment the pizza quantity
+                                pizzaQuantities[pizzaName] += pizzaQuantity;
                             }
                             else
                             {
-                                pizzaQuantities.Add(pizzaName, pizzaQuantity); // Add the pizza quantity to the tracker
+                                pizzaQuantities.Add(pizzaName, pizzaQuantity); 
                             }
                         }
                     }
@@ -165,7 +260,6 @@ namespace ProjetPizzaGroupe6
                 }
             }
 
-            // Consolidate the pizza quantities within the order
             foreach (var pizzaEntry in pizzaQuantities)
             {
                 var pizzaName = pizzaEntry.Key;
@@ -187,7 +281,7 @@ namespace ProjetPizzaGroupe6
                 {
                     foreach (var ingredient in pizza.GetIngredients())
                     {
-                        var ingredientNameCopy = ingredient.Name; // Create a copy of the variable
+                        var ingredientNameCopy = ingredient.Name; 
 
                         if (ingredients.ContainsKey(ingredientNameCopy))
                         {
@@ -200,7 +294,6 @@ namespace ProjetPizzaGroupe6
 
                                 if (existingPizza == pizza)
                                 {
-                                    // Increment the ingredient quantity for the specific pizza
                                     pizzaIngredientList[i] = (existingPizza, quantity + 1);
                                     foundPizza = true;
                                     break;
@@ -209,13 +302,11 @@ namespace ProjetPizzaGroupe6
 
                             if (!foundPizza)
                             {
-                                // Add a new tuple with the pizza and quantity
                                 pizzaIngredientList.Add((pizza, 1));
                             }
                         }
                         else
                         {
-                            // Create a new ingredient entry with the pizza and quantity
                             ingredients.Add(ingredientNameCopy, new List<(Pizza, int)> { (pizza, 1) });
                         }
                     }
