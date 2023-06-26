@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "z1pr9CxebrqMRsK95gZLy3XhG3ugAnMi64tOKqwVtvDqHurRy6uSPun8XWB28+tse+NUUfAM67WK0fC/Yw472A==",
+  "dgSpecHash": "STNG9kOpNlOc6sqLcaiZhNPuHDjmGg/AEFZizgucMu0+2oaaSDN2Gv5PYaWMKCRNJRBbaWaH7QjBaYaMnX0//Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\winnie\\Documents\\ETUDES\\LAB\\MASTER 1\\Semestre 2\\Design patterns\\projet\\projet-pizza-groupe-6\\ProjetPizzaGroupe6\\ProjetPizzaGroupe6.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/moneld/Labdev/doNet/projet-pizza-groupe-6/ProjetPizzaGroupe6/ProjetPizzaGroupe6.csproj",
+  "expectedPackageFiles": [
+    "/home/moneld/.nuget/packages/microsoft.netcore.app.ref/6.0.19/microsoft.netcore.app.ref.6.0.19.nupkg.sha512",
+    "/home/moneld/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.19/microsoft.aspnetcore.app.ref.6.0.19.nupkg.sha512",
+    "/home/moneld/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.19/microsoft.netcore.app.host.linux-x64.6.0.19.nupkg.sha512"
+  ],
   "logs": []
 }
