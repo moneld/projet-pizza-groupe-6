@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Xml;
 
 namespace ProjetPizzaGroupe6
 {
@@ -114,12 +115,35 @@ namespace ProjetPizzaGroupe6
         {
             try
             {
-                var serializer = new XmlSerializer(typeof(List<string>));
-                using (var fileStream = new FileStream(filePath, FileMode.Open))
+                var orders = new Dictionary<string, int>();
+
+                var xmlDocument = new XmlDocument();
+                xmlDocument.Load(filePath);
+
+                var orderNodes = xmlDocument.SelectNodes("//order");
+                foreach (XmlNode orderNode in orderNodes)
                 {
-                    var orders = (List<string>)serializer.Deserialize(fileStream);
-                    return orders;
+                    var pizzaNode = orderNode.SelectSingleNode("pizza");
+                    var quantityNode = orderNode.SelectSingleNode("quantity");
+
+                    if (pizzaNode != null && quantityNode != null)
+                    {
+                        var pizza = pizzaNode.InnerText;
+                        var quantity = int.Parse(quantityNode.InnerText);
+
+                        if (orders.ContainsKey(pizza))
+                        {
+                            orders[pizza] += quantity;
+                        }
+                        else
+                        {
+                            orders[pizza] = quantity;
+                        }
+                    }
                 }
+
+                var orderStrings = orders.Select(kvp => $"{kvp.Value} {kvp.Key}").ToList();
+                return orderStrings;
             }
             catch (Exception ex)
             {
@@ -127,6 +151,8 @@ namespace ProjetPizzaGroupe6
                 return null;
             }
         }
+
+
         public void VerifyFilePath(string filePath)
         {
             if (File.Exists(filePath))
@@ -141,8 +167,8 @@ namespace ProjetPizzaGroupe6
                         var allOrders = string.Join(", ", orders);
                         Console.WriteLine("\n#####################################");
                         Console.WriteLine($"Commande chargée : ");
-                        Console.WriteLine(allOrders);
                         Console.WriteLine("#####################################");
+                        Console.WriteLine(allOrders);
                         ProcessOrder(allOrders);
                     }
                 }
@@ -154,8 +180,8 @@ namespace ProjetPizzaGroupe6
                         var allOrders = string.Join(", ", orders);
                         Console.WriteLine("\n#####################################");
                         Console.WriteLine($"Commande chargée : ");
-                        Console.WriteLine(allOrders);
                         Console.WriteLine("#####################################");
+                        Console.WriteLine(allOrders);
                         ProcessOrder(allOrders);
                     }
                 }
