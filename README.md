@@ -10,3 +10,9 @@ Vous trouverez notre travail concernant le TP Design Patern
     * KOUM WO NKOAGNI Winnie Parton
 
 * Le Design Patern utilisé est le **COMPOSITE**
+
+* **Les fichier json et xml pour tester les données en entrée se trouve dans:**
+    * Dossier: **"Doc File"**
+
+* **Donnée enregistré en fichier json et xml à la sortie se trouve dans le repertoire du projet:**
+    * Path: **bin/debug/net6.0**
