@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Invoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Items>
+    <InvoiceItem>
+      <Name>4 Saisons</Name>
+      <Quantity>3</Quantity>
+      <Price>27</Price>
+      <Ingredients>
+        <string>tomate 150</string>
+        <string>mozzarella 125</string>
+        <string>jambon 2</string>
+        <string>champignons frais 100</string>
+        <string>poivron 5</string>
+        <string>olives 1</string>
+      </Ingredients>
+    </InvoiceItem>
+    <InvoiceItem>
+      <Name>Regina</Name>
+      <Quantity>1</Quantity>
+      <Price>8</Price>
+      <Ingredients>
+        <string>tomate 150</string>
+        <string>mozzarella 125</string>
+        <string>fromage râpé 100</string>
+        <string>jambon 2</string>
+        <string>champignons frais 4</string>
+        <string>huile d'olive 2</string>
+      </Ingredients>
+    </InvoiceItem>
+    <InvoiceItem>
+      <Name>Végétarienne</Name>
+      <Quantity>2</Quantity>
+      <Price>15.00</Price>
+      <Ingredients>
+        <string>tomate 150</string>
+        <string>mozzarella 100</string>
+        <string>courgette 5</string>
+        <string>poivron jaune 1</string>
+        <string>tomates cerises 6</string>
+        <string>olives 1</string>
+      </Ingredients>
+    </InvoiceItem>
+  </Items>
+  <TotalPrice>50.00</TotalPrice>
+</Invoice>

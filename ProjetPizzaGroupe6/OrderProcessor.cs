@@ -1,8 +1,7 @@
 ﻿using System.Xml.Serialization;
-using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace ProjetPizzaGroupe6
 {
@@ -38,7 +37,7 @@ namespace ProjetPizzaGroupe6
             vegetariennePizza.AddIngredient("courgette", 5);
             vegetariennePizza.AddIngredient("poivron jaune", 1);
             vegetariennePizza.AddIngredient("tomates cerises", 6);
-            vegetariennePizza.AddIngredient("olives", 1); //1+2 4 Saisons, 1 Regina, 2 Végétarienne
+            vegetariennePizza.AddIngredient("olives", 1); 
             _pizzas.Add(vegetariennePizza.Name, vegetariennePizza);
         }
 
@@ -71,6 +70,31 @@ namespace ProjetPizzaGroupe6
                         Console.WriteLine($"- {pizza.Name} : {ingredientQuantity * quantity}");
                     }
                     Console.WriteLine();
+                }
+
+                Console.WriteLine("\nVoulez-vous enregistrer la facture ? (oui/non)");
+                var saveInvoice = Console.ReadLine()?.ToLower();
+                if (saveInvoice == "oui" || saveInvoice == "yes")
+                {
+                    var invoice = formatInvoice(order);
+
+                    Console.WriteLine("Choisissez le format de fichier pour enregistrer la facture :");
+                    Console.WriteLine("1. JSON");
+                    Console.WriteLine("2. XML");
+                    var formatChoice = Console.ReadLine();
+
+                    switch (formatChoice)
+                    {
+                        case "1":
+                            SaveInvoiceToJsonFile(invoice);
+                            break;
+                        case "2":
+                            SaveInvoiceToXmlFile(invoice);
+                            break;
+                        default:
+                            Console.WriteLine("Format de fichier non pris en charge. La facture ne sera pas enregistrée.");
+                            break;
+                    }
                 }
             }
         }
@@ -384,5 +408,69 @@ namespace ProjetPizzaGroupe6
                     return null;
             }
         }
+
+        private Invoice formatInvoice(OrderComposite order)
+        {
+            var invoice = new Invoice
+            {
+                Items = new List<InvoiceItem>(),
+                TotalPrice = order.GetPrice()
+            };               
+
+            foreach (var pizzaEntry in order.PizzaQuantities)
+            {
+                var pizzaName = pizzaEntry.Key;
+                var pizzaQuantity = pizzaEntry.Value;
+                var pizza = order.GetComponents().OfType<Pizza>().FirstOrDefault(p => p.Name == pizzaName);
+                var item = new InvoiceItem
+                {
+                    Name = Regex.Unescape(pizzaName),
+                    Quantity = pizzaQuantity,
+                    Price = pizzaQuantity * pizza.GetPrice(),
+                    Ingredients = pizza.GetIngredients().Select(ingredient => $"{Regex.Unescape(ingredient.Name)} {ingredient.Quantity}").ToList()
+                };
+
+                invoice.Items.Add(item);
+            }
+            
+            return invoice;
+        }
+        private void SaveInvoiceToJsonFile(Invoice invoice)
+        {
+            try
+            {                    
+                var options = new JsonSerializerOptions
+                {
+                    WriteIndented = true
+                };
+                var json = JsonSerializer.Serialize(invoice, options);
+                var fileName = $"facture_{DateTime.Now:yyyyMMddHHmmss}.json";
+                File.WriteAllText(fileName, json);
+                Console.WriteLine($"Facture enregistrée au format JSON : {fileName}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Une erreur s'est produite lors de l'enregistrement de la facture au format JSON : {ex.Message}");
+            }
+        }
+
+        private void SaveInvoiceToXmlFile(Invoice invoice)
+        {
+            try
+            {
+                var serializer = new XmlSerializer(typeof(Invoice));
+                var fileName = $"facture_{DateTime.Now:yyyyMMddHHmmss}.xml";
+                using (var fileStream = new FileStream(fileName, FileMode.Create))
+                {
+                    serializer.Serialize(fileStream, invoice);
+                    Console.WriteLine($"Facture enregistrée au format XML : {fileName}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Une erreur s'est produite lors de l'enregistrement de la facture au format XML : {ex.Message}");
+            }
+        }
+
     }
 }

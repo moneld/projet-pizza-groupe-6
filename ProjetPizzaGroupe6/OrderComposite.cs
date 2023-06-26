@@ -3,12 +3,12 @@
     public class OrderComposite : PizzaComponent
     {
         private List<PizzaComponent> _components;
-        private Dictionary<string, int> _pizzaQuantities; // Track pizza quantities
+        private Dictionary<string, int> _pizzaQuantities; 
 
         public OrderComposite()
         {
             _components = new List<PizzaComponent>();
-            _pizzaQuantities = new Dictionary<string, int>(); // Initialize the pizza quantities dictionary
+            _pizzaQuantities = new Dictionary<string, int>();
         }
 
         public void AddComponent(PizzaComponent component)
@@ -31,6 +31,11 @@
         public override decimal GetPrice()
         {
             return _components.Sum(component => component.GetPrice());
+        }
+
+        public Dictionary<string, int> PizzaQuantities
+        {
+            get { return _pizzaQuantities; }
         }
 
         public override void Display(int depth)

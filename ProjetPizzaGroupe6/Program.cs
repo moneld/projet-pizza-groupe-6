@@ -7,15 +7,15 @@ public class Program
         var orderProcessor = new OrderProcessor();
         Console.WriteLine("\n#####################################");
         Console.WriteLine("Pizzas disponibles :");
-        Console.WriteLine("#####################################");
+        Console.WriteLine("#####################################");//1+2 4 Saisons, 1 Regina, 2 Végétarienne
         orderProcessor.DisplayAvailablePizzas();
 
         while (true)
         {
             Console.WriteLine("\n#####################################\n");
             Console.WriteLine("Comment souhaitez-vous renseigner votre commande (ou 'exit' pour quitter) :");
-            Console.WriteLine("Saisissez '1' pour saisir la commande");
-            Console.WriteLine("Saisissez '2' pour charger le fichier des commandes");
+            Console.WriteLine("1. Saisir la commande");
+            Console.WriteLine("2. Charger le fichier des commandes");
 
             var input = Console.ReadLine().ToLower();
 
