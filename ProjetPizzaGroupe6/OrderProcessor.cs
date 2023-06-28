@@ -255,7 +255,7 @@ namespace ProjetPizzaGroupe6
 
                 if (quantityStr.Contains('+'))
                 {
-                    var quantityExpression = quantityStr.Split('+');
+                    var quantityExpression = quantityStr.Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries);
                     var totalQuantity = 0;
 
                     foreach (var expr in quantityExpression)
